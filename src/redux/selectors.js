@@ -1,24 +1,24 @@
 
 export const filterState = state => {
-  return state.contacts.filter;
+  return state.authent.filter;
 };
 
 export const selectLoading = state => {
-  return state.contacts.isLoading;
+  return state.authent.isLoading;
 }
 
 export const selectError = state => {
-  return state.contacts.error;
+  return state.authent.error;
 };
 
 export const selectUserData = state => {
-  return state.contacts.useData;
+  return state.authent.useData;
 };
 
 export const selectAuthentificated = state => {
-  return state.contacts.authentificated;
+  return state.authent.authentificated;
 };
 
 export const selectToken = state => {
-  return state.contacts.token;
+  return state.authent.token;
 }

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { registerUserThunk } from './actions';
+import { loginUserThunk, logoutUserThunk, refreshUserThunk, registerUserThunk } from './actions';
 
 const initialState = {
   userData: null,
@@ -35,33 +35,51 @@ const authentSlice = createSlice({
       .addCase(registerUserThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-      }),
-  //   .addCase(addContact.pending, state => {
-  //     state.isLoading = true;
-  //     state.error = null;
-  //   })
-  //   .addCase(addContact.fulfilled, (state, action) => {
-  //     state.isLoading = false;
-  //     state.items.push(action.payload);
-  //   })
-  //   .addCase(addContact.rejected, (state, action) => {
-  //     state.isLoading = false;
-  //     state.error = action.payload;
-  //   })
-  //   .addCase(deleteContactById.pending, state => {
-  //     state.isLoading = true;
-  //     state.error = null;
-  //   })
-  //   .addCase(deleteContactById.fulfilled, (state, action) => {
-  //     state.isLoading = false;
-  //     state.items = state.items.filter(
-  //       contact => contact.id !== action.payload
-  //     );
-  //   })
-  //   .addCase(deleteContactById.rejected, (state, action) => {
-  //     state.isLoading = false;
-  //     state.error = action.payload;
-  //   }),
+      })
+      //LOGIN
+    .addCase(loginUserThunk.pending, state => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(loginUserThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.authentificated = true;
+        state.userData = action.payload.user;
+        state.token = action.payload.token;
+    })
+    .addCase(loginUserThunk.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })//RFEFRESH
+    .addCase(refreshUserThunk.pending, state => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(refreshUserThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.authentificated = true;
+        state.userData = action.payload;
+    })
+    .addCase(refreshUserThunk.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+    //LOGOUT
+    .addCase(logoutUserThunk.pending, state => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(logoutUserThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.authentificated = false;
+        state.userData = null;
+        state.token = null;
+    })
+    .addCase(logoutUserThunk.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    })
+    
 });
 
 export const { setFilter } = authentSlice.actions;

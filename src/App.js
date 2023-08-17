@@ -5,8 +5,11 @@
 
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { StyledNavLink } from 'App.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuthentificated, selectToken } from 'redux/selectors';
+import { logoutUserThunk, refreshUserThunk } from 'redux/actions';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const RegisterPage = lazy(() => import('pages/RegisterPage'));
@@ -15,15 +18,38 @@ const ContactsPage = lazy(() => import('pages/ContactPage'));
 
 
 const App = () => {
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+  const authentificated = useSelector(selectAuthentificated);
+
+  useEffect(() => {
+    if(!token) {
+      return;
+    }
+
+    dispatch(refreshUserThunk());
+  }, [token, dispatch]);
+
+  const handleLogOut = () => {
+    dispatch(logoutUserThunk());
+  }
   
   return (
     <div className="App">
       <header>
         <nav>
           <StyledNavLink NavLink to="/">Home</StyledNavLink>
-          <StyledNavLink to="/contacts">Contacts</StyledNavLink>
-          <StyledNavLink to="/login">Login</StyledNavLink>
-          <StyledNavLink to="/register">Register</StyledNavLink>
+          {authentificated ? 
+          <>
+            <StyledNavLink to="/contacts">Contacts</StyledNavLink>
+            <button onClick={handleLogOut}>Log Out</button>
+          </> 
+          :
+          <>
+            <StyledNavLink to="/login">Login</StyledNavLink>
+            <StyledNavLink to="/register">Register</StyledNavLink>
+          </>}          
+          
         </nav>
       </header>
       <main>
