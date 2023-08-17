@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { registerUserThunk } from 'redux/actions';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
+import Button from '@mui/material/Button';
 
 const RegisterPage = () => {
 
@@ -82,7 +83,12 @@ const RegisterPage = () => {
           {formik.errors.password && formik.touched.password ? <div className="error">{formik.errors.password}</div> : null}
       </label>
       <br/>
-      <button type='submit'>Sign Up</button>
+      <Button 
+        variant="contained" 
+        color='secondary' 
+        size='small' 
+
+        type='submit'>Sign Up</Button>
     </form>
   </div>;
 };
