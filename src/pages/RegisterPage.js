@@ -37,6 +37,12 @@ const RegisterPage = () => {
     return <Navigate to='/contacts'/>
   };
 
+  const FormikError = () => {
+    return (
+      <div className="error" style={{color: '#ef7373', textAlign: 'left', marginTop: 10}}>{formik.errors.name}</div>
+    )
+  }
+
   return <div>
     <Typography variant='h6' display='block' marginBottom={4} marginTop={10}>REGISTER</Typography>
     <Box 
@@ -63,7 +69,7 @@ const RegisterPage = () => {
           value={formik.values.name}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
-          {formik.errors.name && formik.touched.name ? <div className="error">{formik.errors.name}</div> : null}
+          {formik.errors.name && formik.touched.name ? <FormikError/> : null}
       </label>
       </Grid>
       <br/>
@@ -78,7 +84,7 @@ const RegisterPage = () => {
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
-          {formik.errors.email && formik.touched.email ? <div className="error">{formik.errors.email}</div> : null}
+          {formik.errors.email && formik.touched.email ? <FormikError/> : null}
       </label>
       </Grid>
       <br/>
@@ -93,7 +99,7 @@ const RegisterPage = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
-          {formik.errors.password && formik.touched.password ? <div className="error">{formik.errors.password}</div> : null}
+          {formik.errors.password && formik.touched.password ? <FormikError/> : null}
       </label>
       </Grid>
       </Grid>
