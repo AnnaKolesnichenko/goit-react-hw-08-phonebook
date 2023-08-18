@@ -25,12 +25,12 @@ const App = () => {
   const authentificated = useSelector(selectAuthentificated);
 
   useEffect(() => {
-    if(!token) {
+    if(!token || authentificated) {
       return;
     }
 
     dispatch(refreshUserThunk());
-  }, [token, dispatch]);
+  }, [token, authentificated, dispatch]);
 
   const handleLogOut = () => {
     dispatch(logoutUserThunk());

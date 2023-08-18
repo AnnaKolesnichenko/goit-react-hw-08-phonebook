@@ -21,4 +21,17 @@ export const selectAuthentificated = state => {
 
 export const selectToken = state => {
   return state.authent.token;
+};
+
+//CONTACTS  
+export const selectUserContacts = state => {
+  return state.contacts.contacts;
+};
+
+export const selectContactsIsLoading = state => {
+  return state.contacts.isLoading;
+};
+
+export const selectContactsError = state => {
+  return state.contacts.error;
 }
