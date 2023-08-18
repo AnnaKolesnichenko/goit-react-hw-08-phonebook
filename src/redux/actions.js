@@ -28,6 +28,7 @@ export const registerUserThunk = createAsyncThunk(
             return res.data;
         }
         catch (error) {
+            console.log('error', error.message)
             return thunkApi.rejectWithValue(error.message);
         }
     }
@@ -68,7 +69,7 @@ export const logoutUserThunk = createAsyncThunk(
     'authent/logout',
     async (_, thunkApi) => {
         try{
-            const res = await $instance.get('/users/logout');
+            const res = await $instance.post('/users/logout');
             clearToken();
             return res.data;
         }

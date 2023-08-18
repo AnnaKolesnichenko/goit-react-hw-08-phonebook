@@ -1,30 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUserThunk } from 'redux/actions';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {Box, Button, Grid, TextField, Typography} from '@mui/material';
+import { selectAuthentificated } from 'redux/selectors';
+import { Navigate } from 'react-router-dom';
 
 const RegisterPage = () => {
 
   const dispatch = useDispatch();
-
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-
-  //   const form = e.currentTarget;
-
-  //   const name = form.elements.userName.value;
-  //   const email = form.elements.userEmail.value;
-  //   const password = form.elements.userPassword.value;
-
-
-  //   dispatch(registerUserThunk({
-  //     name,
-  //     email,
-  //     password
-  //   }))
-  //  }
+  const authentificated = useSelector(selectAuthentificated);
 
    const formik = useFormik({
     initialValues: {
@@ -47,64 +33,79 @@ const RegisterPage = () => {
     },
    });
 
+   if(authentificated) {
+    return <Navigate to='/contacts'/>
+  };
+
   return <div>
-    <Box xs={{
+    <Typography variant='h6' display='block' marginBottom={4} marginTop={10}>REGISTER</Typography>
+    <Box 
+    sx={{
       display: 'flex',
       marginTop: 32,
-      marginRight: 'auto',
-      marginLeft: 'auto',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center'
-
+      justifyContent: 'center',
+      width: '100%',
+      maxWidth: 600,
+      margin: '0 auto'
     }}>
-    <Typography variant='h5' display='block'>Register</Typography>
-    <Box component="form" onSubmit={formik.handleSubmit}>
-      <Grid container spacing={2}>
-      <Grid item xs={12} md={8}>        
-       <TextField
+      <Box component="form" onSubmit={formik.handleSubmit}>
+      <Grid container spacing={2} sx={{alignItems: 'center', justifyContent: 'center'}}>
+      <Grid item xs={12} md={10}>
+      <label>
+        <TextField 
           type='text' 
           name="name" 
           label="Name"
           fullWidth
+          variant='outlined'
           value={formik.values.name}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
           {formik.errors.name && formik.touched.name ? <div className="error">{formik.errors.name}</div> : null}
+      </label>
       </Grid>
       <br/>
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12} md={10}>
+      <label>
         <TextField 
           type='email' 
           name='email' 
-          label="Email"
+          label='Email'
           fullWidth
+          variant='outlined'
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
           {formik.errors.email && formik.touched.email ? <div className="error">{formik.errors.email}</div> : null}
+      </label>
       </Grid>
       <br/>
-      <Grid item xs={12} md={8}>
-        <TextField
+      <Grid item xs={12} md={10}>
+      <label>
+        <TextField 
           type='password' 
           name='password' 
-          label="Password"
+          label='Password'
           fullWidth
+          variant='outlined'
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
           {formik.errors.password && formik.touched.password ? <div className="error">{formik.errors.password}</div> : null}
+      </label>
       </Grid>
       </Grid>
       <br/>
       <Button 
         variant="contained" 
-        color='secondary' 
-        size='small' 
-
+        color='primary'  
+        size='large' 
+        sx={{marginTop: 4, marginBottom: 4}}
         type='submit'>Sign Up</Button>
-    </Box></Box>
+    </Box>
+    </Box>
   </div>;
 };
       

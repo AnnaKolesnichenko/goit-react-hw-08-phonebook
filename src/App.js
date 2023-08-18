@@ -6,11 +6,11 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { Suspense, lazy, useEffect } from 'react';
-import { StyledNavLink } from 'App.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuthentificated, selectToken } from 'redux/selectors';
 import { logoutUserThunk, refreshUserThunk } from 'redux/actions';
-
+import { NavLink } from 'react-router-dom';
+import { AppBar, Box, Button, Toolbar } from '@mui/material';
 
 
 const HomePage = lazy(() => import('pages/HomePage'));
@@ -35,25 +35,42 @@ const App = () => {
   const handleLogOut = () => {
     dispatch(logoutUserThunk());
   }
+
   
   return (
     <div className="App">
-      <header>
+      <AppBar position='static'>
+        <Toolbar style={{display: 'flex', justifyContent: 'space-between'}}>
+        <Box>
         <nav>
-          <StyledNavLink NavLink to="/">Home</StyledNavLink>
+          <Button component={NavLink} to="/" 
+            color="inherit"
+            size='large' >Home</Button>
           {authentificated ? 
           <>
-            <StyledNavLink to="/contacts">Contacts</StyledNavLink>
-            <button onClick={handleLogOut}>Log Out</button>
-          </> 
-          :
-          <>
-            <StyledNavLink to="/login">Login</StyledNavLink>
-            <StyledNavLink to="/register">Register</StyledNavLink>
-          </>}          
+          <Button component={NavLink} to="/contacts"
+            color="inherit"  
+            size='large' >Contacts</Button>
+          <Button component={NavLink} onClick={handleLogOut} 
+            color="inherit"  
+            size='large' >Log Out</Button>
+        </> 
+        :
+        <>
+          <Button component={NavLink} to="/login" 
+            color="inherit"  
+            size='large' >Login</Button>
+          <Button component={NavLink} to="/register" 
+            color="inherit"  
+            size='large' >Register</Button>
+        </>}          
           
         </nav>
-      </header>
+        </Box>
+      </Toolbar>
+      </AppBar>
+      
+      
       <main>
         <Suspense fallback={<p>adding</p>}>
           <Routes>

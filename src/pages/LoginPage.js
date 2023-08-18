@@ -1,28 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUserThunk} from 'redux/actions';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-
+import {Box, Button, Grid, TextField, Typography } from '@mui/material';
 
 
 const LoginPage = () => {
 
   const dispatch = useDispatch();
-
-  // const handleFormSubmit = e => {
-  //   e.preventDefault();
-
-  //   const form = e.currentTarget;
-  //   const email = form.elements.userEmail.value;
-  //   const password = form.elements.userPassword.value;
-
-
-  //   dispatch(loginUserThunk({
-  //     email,
-  //     password
-  //   }))
-  //  }
 
   const formik = useFormik({
     initialValues: {
@@ -42,34 +28,63 @@ const LoginPage = () => {
     },
   });
 
+  
+  
    
   return <div>
-    <h1>Log In</h1>
-    <form onSubmit={formik.handleSubmit}>
+    <Typography variant='h6' display='block' marginBottom={4} marginTop={10}>LOG IN</Typography>
+    <Box 
+    sx={{
+      display: 'flex',
+      marginTop: 32,
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+      maxWidth: 600,
+      margin: '0 auto'
+    }}>
+    <Box component='form' onSubmit={formik.handleSubmit}>
+      <Grid container spacing={2} sx={{alignItems: 'center', justifyContent: 'center'}}>
+      <Grid item xs={12} md={10}>
       <label>
-        <p>Email</p>
-        <input 
+        <TextField 
           type='email' 
           name='email' 
+          label='Email'
+          fullWidth
+          variant='outlined'
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
           {formik.errors.email && formik.touched.email ? <div className="error">{formik.errors.email}</div> : null}
       </label>
+      </Grid>
       <br/>
+      <Grid item xs={12} md={10}>
       <label>
-        <p>Password</p>
-        <input  
+        <TextField  
           type='password' 
           name='password' 
+          label='Password'
+          fullWidth
+          variant='outlined'
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
           {formik.errors.password && formik.touched.password ? <div className="error">{formik.errors.password}</div> : null}
       </label>
+      </Grid>
       <br/>
-      <button type='submit'>Sign Up</button>
-    </form>
+      <Button 
+      variant="contained" 
+      color='primary'  
+      size='large' 
+      sx={{marginTop: 4, marginBottom: 4}}
+      type='submit'>Sign Up</Button>
+      </Grid>
+    </Box>
+    </Box>
   </div>;
 };
       
