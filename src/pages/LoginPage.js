@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUserThunk} from 'redux/actions';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
@@ -29,8 +29,7 @@ const LoginPage = () => {
   });
 
   
-  
-   
+
   return <div>
     <Typography variant='h6' display='block' marginBottom={4} marginTop={10}>LOG IN</Typography>
     <Box 

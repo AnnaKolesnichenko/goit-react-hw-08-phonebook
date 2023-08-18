@@ -1,7 +1,7 @@
 import { authentReducer } from './authentReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import {
-  Persistor,
+  persistStore,
   persistReducer,
   FLUSH,
   REHYDRATE,
@@ -10,7 +10,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import persistStore from 'redux-persist/es/persistStore';
+
 import storage from 'redux-persist/lib/storage';
 
 const authentPersistConfig = {

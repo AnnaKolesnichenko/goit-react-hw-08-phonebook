@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { clear } from "@testing-library/user-event/dist/clear";
 import axios from "axios";
 
 const $instance = axios.create({
