@@ -4,6 +4,7 @@ import { loginUserThunk } from 'redux/actions';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import p from '../images/white.jpeg';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -28,11 +29,26 @@ const LoginPage = () => {
     },
   });
 
+  const FormikError = () => {
+    return (
+      <div className="error" style={{color: '#ef7373', textAlign: 'left', marginTop: 10}}>{formik.errors.name}</div>
+    )
+  }
+
+  const backgroundStyles = {
+    backgroundImage: `url(${p})`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'top',
+    width: '100vw',
+    height: '100vh',
+    marginTop: '-10px'
+  };
+
+
   return (
-    <div>
-      <Typography variant="h6" display="block" marginBottom={4} marginTop={10}>
-        LOG IN
-      </Typography>
+    <div style={backgroundStyles}>
+      
       <Box
         sx={{
           display: 'flex',
@@ -44,7 +60,9 @@ const LoginPage = () => {
           maxWidth: 600,
           margin: '0 auto',
         }}
-      >
+      ><Typography variant="h6" display="block" marginBottom={4} marginTop={10}>
+        LOG IN
+      </Typography>
         <Box component="form" onSubmit={formik.handleSubmit}>
           <Grid
             container
@@ -64,7 +82,7 @@ const LoginPage = () => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.email && formik.touched.email ? (
-                  <div className="error">{formik.errors.email}</div>
+                  <FormikError/>
                 ) : null}
               </label>
             </Grid>
@@ -82,7 +100,7 @@ const LoginPage = () => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.password && formik.touched.password ? (
-                  <div className="error">{formik.errors.password}</div>
+                  <FormikError/>
                 ) : null}
               </label>
             </Grid>

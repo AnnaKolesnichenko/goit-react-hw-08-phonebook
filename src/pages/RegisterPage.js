@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import {Box, Button, Grid, TextField, Typography} from '@mui/material';
 import { selectAuthentificated } from 'redux/selectors';
 import { Navigate } from 'react-router-dom';
+import p from '../images/white.jpeg';
 
 const RegisterPage = () => {
 
@@ -43,8 +44,19 @@ const RegisterPage = () => {
     )
   }
 
-  return <div>
-    <Typography variant='h6' display='block' marginBottom={4} marginTop={10}>REGISTER</Typography>
+  const backgroundStyles = {
+    backgroundImage: `url(${p})`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'top',
+    width: '100vw',
+    height: '100vh',
+    marginTop: '-10px'
+  };
+
+
+  return <div style={backgroundStyles}>
+    
     <Box 
     sx={{
       display: 'flex',
@@ -56,6 +68,7 @@ const RegisterPage = () => {
       maxWidth: 600,
       margin: '0 auto'
     }}>
+      <Typography variant='h6' display='block' marginBottom={4} marginTop={10}>REGISTER</Typography>
       <Box component="form" onSubmit={formik.handleSubmit}>
       <Grid container spacing={2} sx={{alignItems: 'center', justifyContent: 'center'}}>
       <Grid item xs={12} md={10}>

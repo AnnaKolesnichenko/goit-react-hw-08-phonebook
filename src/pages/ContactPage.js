@@ -25,12 +25,13 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 
+import p from '../images/white.jpeg';
+
 const ContactPage = () => {
   const authentificated = useSelector(selectAuthentificated);
   const contacts = useSelector(selectUserContacts);
   const isLoading = useSelector(selectContactsIsLoading);
   const error = useSelector(selectContactsError);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,20 +53,43 @@ const ContactPage = () => {
       number: Yup.string().min(7).required('Please fill in this field'),
     }),
     onSubmit: values => {
-      dispatch(
+      const doubleName = contacts.some(contact => contact.name === values.name);
+      const doubleNumber = contacts.some(contact => contact.number === values.number);
+
+      if(doubleName || doubleNumber) {
+        formik.setFieldError('name', 'This name is already in use');      
+      } else {
+        dispatch(
         createContactThunk({
           name: values.name,
           number: values.number,
         })
       );
+    }      
       // formik.resetForm();
     },
   });
 
   const allContacts = Array.isArray(contacts) && contacts.length > 0;
 
+  const backgroundStyles = {
+    backgroundImage: `url(${p})`,
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'top',
+    width: '100vw',
+    height: '100vh',
+    marginTop: '-10px'
+  };
+
+  const FormikError = () => {
+    return (
+      <div className="error" style={{color: '#ef7373', textAlign: 'left', marginTop: 10}}>{formik.errors.name}</div>
+    )
+  }
+
   return (
-    <div>
+    <div style={backgroundStyles} >
       <Box
         sx={{
           display: 'flex',
@@ -100,7 +124,7 @@ const ContactPage = () => {
                 onBlur={formik.handleBlur}
               />
               {formik.errors.email && formik.touched.email ? (
-                <div className="error">{formik.errors.email}</div>
+                <FormikError/>
               ) : null}
             </Grid>
             <br />
@@ -117,7 +141,7 @@ const ContactPage = () => {
                 onBlur={formik.handleBlur}
               />
               {formik.errors.password && formik.touched.password ? (
-                <div className="error">{formik.errors.password}</div>
+                <FormikError/>
               ) : null}
             </Grid>
             <br />
@@ -160,7 +184,7 @@ const ContactPage = () => {
         display="flex"
         flexDirection="column"
         margin="10px 10px"
-        bgcolor="#f2f7f6"
+      
       >
         {allContacts && (
           <Typography

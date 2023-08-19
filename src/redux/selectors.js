@@ -34,4 +34,4 @@ export const selectContactsIsLoading = state => {
 
 export const selectContactsError = state => {
   return state.contacts.error;
-}
+};
