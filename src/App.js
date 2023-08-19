@@ -14,6 +14,7 @@ import { AppBar, Box, Button } from '@mui/material';
 // import Toolbar from '@mui/material/Toolbar';
 // or
 import { Toolbar } from '@mui/material';
+import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const RegisterPage = lazy(() => import('pages/RegisterPage'));
@@ -94,7 +95,14 @@ const App = () => {
         <Suspense fallback={<p>adding</p>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/contacts" element={<ContactsPage />} />
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute redirectTo="/login">
+                  <ContactsPage />
+                </PrivateRoute>
+              }
+            />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
           </Routes>
