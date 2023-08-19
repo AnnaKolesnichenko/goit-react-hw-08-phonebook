@@ -49,9 +49,9 @@ const App = () => {
                 to="/"
                 color="inherit"
                 size="large"
-                sx={{ marginRight: '750px' }}
+                sx={{ marginRight: 'auto' }}
               >
-                Home
+                phonebook
               </Button>
               {authentificated ? (
                 <>

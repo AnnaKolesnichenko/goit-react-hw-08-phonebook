@@ -41,6 +41,7 @@ const ContactPage = () => {
     dispatch(requestContactsThunk());
   }, [authentificated, dispatch]);
 
+
   const formik = useFormik({
     initialValues: {
       name: '',
