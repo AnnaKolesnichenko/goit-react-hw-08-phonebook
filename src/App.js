@@ -44,7 +44,13 @@ const App = () => {
         <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box>
             <nav>
-              <Button component={NavLink} to="/" color="inherit" size="large">
+              <Button
+                component={NavLink}
+                to="/"
+                color="inherit"
+                size="large"
+                sx={{ marginRight: '750px' }}
+              >
                 Home
               </Button>
               {authentificated ? (
