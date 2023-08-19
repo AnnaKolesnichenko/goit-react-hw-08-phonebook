@@ -4,7 +4,7 @@ import {
   createContactThunk,
   deleteContactThunk,
   requestContactsThunk,
-} from 'redux/contactsActions';
+} from 'redux/contacts/contactsActions';
 import {
   selectAuthentificated,
   selectContactsError,
@@ -24,8 +24,9 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
+import FormikError from 'components/FormikError/FormikError';
 
-import p from '../images/white.jpeg';
+import { backgroundStyles } from 'images/background';
 
 const ContactPage = () => {
   const authentificated = useSelector(selectAuthentificated);
@@ -72,22 +73,6 @@ const ContactPage = () => {
 
   const allContacts = Array.isArray(contacts) && contacts.length > 0;
 
-  const backgroundStyles = {
-    backgroundImage: `url(${p})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'top',
-    width: '100vw',
-    height: '100vh',
-    marginTop: '-10px'
-  };
-
-  const FormikError = () => {
-    return (
-      <div className="error" style={{color: '#ef7373', textAlign: 'left', marginTop: 10}}>{formik.errors.name}</div>
-    )
-  }
-
   return (
     <div style={backgroundStyles} >
       <Box
@@ -119,12 +104,12 @@ const ContactPage = () => {
                 fullWidth
                 size="small"
                 variant="outlined"
-                value={formik.values.email}
+                value={formik.values.name}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
-              {formik.errors.email && formik.touched.email ? (
-                <FormikError/>
+              {formik.errors.name && formik.touched.name ? (
+                <FormikError error={formik.errors.name}/>
               ) : null}
             </Grid>
             <br />
@@ -136,12 +121,12 @@ const ContactPage = () => {
                 fullWidth
                 size="small"
                 variant="outlined"
-                value={formik.values.password}
+                value={formik.values.number}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
-              {formik.errors.password && formik.touched.password ? (
-                <FormikError/>
+              {formik.errors.number && formik.touched.number ? (
+                <FormikError error={formik.errors.number}/>
               ) : null}
             </Grid>
             <br />
@@ -167,17 +152,6 @@ const ContactPage = () => {
 
       {isLoading && <p>Loading</p>}
       {error && <p> There is something wrong there...</p>}
-
-      {/* <ul>
-        {allContacts && contacts.map(contact => {
-          return (
-            <li key={contact.id}>
-              <h3>Name: {contact.name}</h3>
-              <h3>Number: {contact.number}</h3>
-            </li>
-          )
-        })}
-      </ul> */}
 
       <Grid
         container

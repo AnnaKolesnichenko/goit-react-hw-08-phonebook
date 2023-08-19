@@ -1,5 +1,5 @@
 import React from 'react';
-import backgroundImage from '../images/p.jpeg'; // Замените на путь к вашему изображению
+import backgroundImage from '../images/p.jpeg'; 
 import { Typography } from '@mui/material';
 
 const HomePage = () => {

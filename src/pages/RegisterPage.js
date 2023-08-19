@@ -1,12 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUserThunk } from 'redux/actions';
+import { registerUserThunk } from 'redux/auth/actions';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {Box, Button, Grid, TextField, Typography} from '@mui/material';
 import { selectAuthentificated } from 'redux/selectors';
 import { Navigate } from 'react-router-dom';
-import p from '../images/white.jpeg';
+
+import FormikError from 'components/FormikError/FormikError';
+import { backgroundStyles } from 'images/background';
 
 const RegisterPage = () => {
 
@@ -38,25 +40,9 @@ const RegisterPage = () => {
     return <Navigate to='/contacts'/>
   };
 
-  const FormikError = () => {
-    return (
-      <div className="error" style={{color: '#ef7373', textAlign: 'left', marginTop: 10}}>{formik.errors.name}</div>
-    )
-  }
 
-  const backgroundStyles = {
-    backgroundImage: `url(${p})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'top',
-    width: '100vw',
-    height: '100vh',
-    marginTop: '-10px'
-  };
-
-
-  return <div style={backgroundStyles}>
-    
+  return (
+  <div style={backgroundStyles}>    
     <Box 
     sx={{
       display: 'flex',
@@ -82,7 +68,7 @@ const RegisterPage = () => {
           value={formik.values.name}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
-          {formik.errors.name && formik.touched.name ? <FormikError/> : null}
+          {formik.errors.name && formik.touched.name ? <FormikError error={formik.errors.name}/> : null}
       </label>
       </Grid>
       <br/>
@@ -97,7 +83,7 @@ const RegisterPage = () => {
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
-          {formik.errors.email && formik.touched.email ? <FormikError/> : null}
+          {formik.errors.email && formik.touched.email ? <FormikError error={formik.errors.email}/> : null}
       </label>
       </Grid>
       <br/>
@@ -112,7 +98,7 @@ const RegisterPage = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}/>
-          {formik.errors.password && formik.touched.password ? <FormikError/> : null}
+          {formik.errors.password && formik.touched.password ? <FormikError error={formik.errors.password}/> : null}
       </label>
       </Grid>
       </Grid>
@@ -125,7 +111,8 @@ const RegisterPage = () => {
         type='submit'>Sign Up</Button>
     </Box>
     </Box>
-  </div>;
+  </div>
+  )
 };
       
     export default RegisterPage;

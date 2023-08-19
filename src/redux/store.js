@@ -1,4 +1,4 @@
-import { authentReducer } from './authentReducer';
+import { authentReducer } from './auth/authentReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
@@ -12,7 +12,7 @@ import {
 } from 'redux-persist';
 
 import storage from 'redux-persist/lib/storage';
-import { contactsReducer } from './contactsReducer';
+import { contactsReducer } from './contacts/contactsReducer';
 
 const authentPersistConfig = {
   key: 'authent',
