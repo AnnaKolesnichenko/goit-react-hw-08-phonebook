@@ -12,7 +12,9 @@ import {
 } from 'redux/selectors';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography, List, ListItem } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 
 const ContactPage = () => {
   const authentificated = useSelector(selectAuthentificated);
@@ -46,42 +48,40 @@ const ContactPage = () => {
           number: values.number,
         })
       );
-      formik.resetForm();
+      // formik.resetForm();
     },
   });
 
   const allContacts = Array.isArray(contacts) && contacts.length > 0;
 
   return (
-    <div>
-      <Typography variant="h6" display="block" marginBottom={4} marginTop={10}>
-        ADD CONTACT
-      </Typography>
+    <div>      
       <Box
         sx={{
           display: 'flex',
           marginTop: 32,
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
+          flexDirection: 'column',          
           width: '100%',
           maxWidth: 600,
-          margin: '0 auto',
+          margin: '10px 10px',
         }}
       >
+      <Typography variant="subtitle1" display="block" marginBottom={2} marginTop={2} textAlign='left'>
+        ADD CONTACT
+      </Typography>
         <Box component="form" onSubmit={formik.handleSubmit}>
           <Grid
             container
             spacing={2}
-            sx={{ alignItems: 'center', justifyContent: 'center' }}
+            
           >
-            <Grid item xs={12} md={10}>
-              <label>
+            <Grid item xs={8} md={10}>
                 <TextField
                   type="name"
                   name="name"
                   label="Name"
                   fullWidth
+                  size='small'
                   variant="outlined"
                   value={formik.values.email}
                   onChange={formik.handleChange}
@@ -90,16 +90,15 @@ const ContactPage = () => {
                 {formik.errors.email && formik.touched.email ? (
                   <div className="error">{formik.errors.email}</div>
                 ) : null}
-              </label>
             </Grid>
             <br />
-            <Grid item xs={12} md={10}>
-              <label>
+            <Grid item xs={8} md={10}>
                 <TextField
                   type="number"
                   name="number"
                   label="Number"
                   fullWidth
+                  size='small'
                   variant="outlined"
                   value={formik.values.password}
                   onChange={formik.handleChange}
@@ -108,18 +107,19 @@ const ContactPage = () => {
                 {formik.errors.password && formik.touched.password ? (
                   <div className="error">{formik.errors.password}</div>
                 ) : null}
-              </label>
             </Grid>
             <br />
+            <Grid item xs={6} >
             <Button
               variant="contained"
               color="primary"
-              size="large"
-              sx={{ marginTop: 4, marginBottom: 4 }}
+              size="medium"
+              sx={{ marginTop: 1, marginBottom: 2, width: '100px', marginLeft: '-190px'}}
               type="submit"
             >
               ADD
             </Button>
+            </Grid>
           </Grid>
         </Box>
       </Box>
@@ -127,17 +127,36 @@ const ContactPage = () => {
       {isLoading && <p>Loading</p>}
       {error && <p> There is something wrong there...</p>}
 
-      <ul>
+      {/* <ul>
+        {allContacts && contacts.map(contact => {
+          return (
+            <li key={contact.id}>
+              <h3>Name: {contact.name}</h3>
+              <h3>Number: {contact.number}</h3>
+            </li>
+          )
+        })}
+      </ul> */}
+
+      <Grid container display='flex' flexDirection='column' margin='10px 10px' bgcolor='#f2f7f6'>
+        {allContacts && <Typography variant='h6' textAlign='left' marginBottom={2} color='#0e4686'>ContactList</Typography>}
+      <List sx={{width: '100%', maxWidth: 650, listStyle: 'none' }}>
         {allContacts &&
           contacts.map(contact => {
             return (
-              <li key={contact.id}>
-                <h3>Name: {contact.name}</h3>
-                <h3>Number: {contact.number}</h3>
-              </li>
+              <ListItem key={contact.id} sx={{paddingLeft: '0'}}
+              secondaryAction={
+                <IconButton edge="end" aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              }>
+                <Typography variant='subtitle1' marginRight={4} width='200px'>Name: {contact.name}</Typography>
+                <Typography variant='subtitle1' marginRight={4}>Number: {contact.number}</Typography>
+              </ListItem>
             );
           })}
-      </ul>
+      </List>
+      </Grid>
     </div>
   );
 };
