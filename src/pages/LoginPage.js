@@ -1,13 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUserThunk } from 'redux/actions';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import p from '../images/white.jpeg';
+import { selectAuthentificated } from 'redux/selectors';
+import { Navigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const authenticated = useSelector(selectAuthentificated);
 
   const formik = useFormik({
     initialValues: {
@@ -28,6 +31,8 @@ const LoginPage = () => {
       formik.resetForm();
     },
   });
+
+  if (authenticated) return <Navigate to="/contacts" />;
 
   const FormikError = () => {
     return (

@@ -183,8 +183,7 @@ const ContactPage = () => {
         container
         display="flex"
         flexDirection="column"
-        margin="10px 10px"
-      
+        margin="10px 10px"      
       >
         {allContacts && (
           <Typography
@@ -213,7 +212,7 @@ const ContactPage = () => {
                     </IconButton>
                   }
                 >
-                  <Typography variant="subtitle1" marginRight={4} width="200px">
+                  <Typography variant="subtitle1" marginRight={4} width="200px" >
                     Name: {contact.name}
                   </Typography>
                   <Typography variant="subtitle1" marginRight={4}>
