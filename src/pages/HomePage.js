@@ -14,8 +14,9 @@ const HomePage = () => {
 
   return (
     <div style={backgroundStyles}>
-      <Typography variant='h5' textAlign='left' paddingLeft={4} paddingTop={6} >CREATE YOUR OWN BOOK OF CONTACTS</Typography>
-      <Typography variant='h6' textAlign='left' paddingLeft={4} paddingTop={4}>EASY. FAST. SECURE</Typography>
+      <Typography variant='h5' color="#01579b" textAlign='left' paddingLeft={4} paddingTop={6} >CREATE YOUR OWN BOOK OF CONTACTS</Typography>
+      <Typography variant='h6' color="#0277bd" textAlign='left' paddingLeft={4} paddingTop={4}>EASY... FAST... SECURE</Typography>
+      <Typography variant='subtitle1' color="#0288d1" textAlign='left' paddingLeft={4} paddingTop={4}>STAY CONNECTED</Typography>
     </div>
   );
 };

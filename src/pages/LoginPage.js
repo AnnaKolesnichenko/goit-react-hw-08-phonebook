@@ -34,11 +34,6 @@ const LoginPage = () => {
 
   if (authenticated) return <Navigate to="/contacts" />;
 
-  const FormikError = () => {
-    return (
-      <div className="error" style={{color: '#ef7373', textAlign: 'left', marginTop: 10}}>{formik.errors.name}</div>
-    )
-  }
 
   const backgroundStyles = {
     backgroundImage: `url(${p})`,
@@ -87,7 +82,7 @@ const LoginPage = () => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.email && formik.touched.email ? (
-                  <FormikError/>
+                  <div className="error" style={{color: '#ef7373', textAlign: 'left', marginTop: 10}}>{formik.errors.email}</div>
                 ) : null}
               </label>
             </Grid>
@@ -105,7 +100,7 @@ const LoginPage = () => {
                   onBlur={formik.handleBlur}
                 />
                 {formik.errors.password && formik.touched.password ? (
-                  <FormikError/>
+                  <div className="error" style={{color: '#ef7373', textAlign: 'left', marginTop: 10}}>{formik.errors.password}</div>
                 ) : null}
               </label>
             </Grid>
